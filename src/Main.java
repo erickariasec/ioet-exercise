@@ -37,8 +37,7 @@ public class Main {
         }
 
         for(ScheduleEmployee scheduleEmployee: scheduleEmployeeList){ // Verify functionality of Schedule Employee List
-            System.out.println(scheduleEmployee.getName());
-            System.out.println(scheduleEmployee.getSchedule());
+            System.out.println(scheduleEmployee.toString()); 
         }
     }
 }

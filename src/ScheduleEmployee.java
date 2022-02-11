@@ -16,4 +16,12 @@ public class ScheduleEmployee {
     public String getSchedule() {
         return schedule;
     }
+
+    @Override
+    public String toString() {
+        return "ScheduleEmployee{" +
+                "name='" + name + '\'' +
+                ", schedule='" + schedule + '\'' +
+                '}';
+    }
 }
