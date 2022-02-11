@@ -24,8 +24,21 @@ public class Main {
             e.printStackTrace();
         }
 
+        // Create a list of the object Schedule Employee
+        List<ScheduleEmployee> scheduleEmployeeList = new ArrayList<>();
+        // scheduleEmployeeList.add(new ScheduleEmployee("Carla", "10-12"));
+
         for (String line : listOfEachLine){
-            System.out.println(line);
+            String[] nameAndSchedule = line.split("="); // split returns an array
+            String name = nameAndSchedule[0];
+            String schedule = nameAndSchedule[1];
+            ScheduleEmployee scheduleEmployee = new ScheduleEmployee(name, schedule); // Create a new object each loop
+            scheduleEmployeeList.add(scheduleEmployee); // Add Object to the Schedule Employee List
+        }
+
+        for(ScheduleEmployee scheduleEmployee: scheduleEmployeeList){ // Verify functionality of Schedule Employee List
+            System.out.println(scheduleEmployee.getName());
+            System.out.println(scheduleEmployee.getSchedule());
         }
     }
 }
