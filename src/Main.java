@@ -10,20 +10,11 @@ public class Main {
         List<String> listOfEachLine = readLinesFromFile("input1.txt"); // Calls readLinesFromFile function
 
         // Create a list of the object Schedule Employee
-        List<ScheduleEmployee> scheduleEmployeeList = new ArrayList<>();
-        // scheduleEmployeeList.add(new ScheduleEmployee("Carla", "10-12"));
+        List<ScheduleEmployee> scheduleEmployeeList = getListOfEmployees(listOfEachLine);
 
-        for (String line : listOfEachLine){
-            String[] nameAndSchedule = line.split("="); // split returns an array
-            String name = nameAndSchedule[0];
-            String schedule = nameAndSchedule[1];
-            ScheduleEmployee scheduleEmployee = new ScheduleEmployee(name, schedule); // Create a new object each loop
-            scheduleEmployeeList.add(scheduleEmployee); // Add Object to the Schedule Employee List
-        }
-
-        for(ScheduleEmployee scheduleEmployee: scheduleEmployeeList){ // Verify functionality of Schedule Employee List
+        /*for(ScheduleEmployee scheduleEmployee: scheduleEmployeeList){ // Verify functionality of Schedule Employee List
             System.out.println(scheduleEmployee.toString()); 
-        }
+        }*/
     }
 
     // Create function to return list Of Each Line
@@ -45,5 +36,25 @@ public class Main {
             e.printStackTrace();
         }
         return listOfEachLine;
+    }
+
+    public static List<ScheduleEmployee> getListOfEmployees(List<String>listOfEachLine){
+        List<ScheduleEmployee> scheduleEmployeeList = new ArrayList<>();
+
+        // Iterate my list to print in console each line
+        for (String line : listOfEachLine){
+            String[] nameAndSchedule = line.split("="); // split returns an array
+
+            String name = nameAndSchedule[0];
+            System.out.println(name);
+
+            String[] schedule = nameAndSchedule[1].split(","); // split schedule
+            System.out.println(schedule);
+
+
+//            ScheduleEmployee scheduleEmployee = new ScheduleEmployee(name, schedule); // Create a new object each loop
+//            scheduleEmployeeList.add(scheduleEmployee); // Add Object to the Schedule Employee List
+        }
+        return scheduleEmployeeList;
     }
 }
