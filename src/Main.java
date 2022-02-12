@@ -16,7 +16,7 @@ public class Main {
         printListOfEmployeesWithSchedule(scheduleEmployeeList);
 
         // Compare All items in the List
-        String result = compareListOfEmployee(scheduleEmployeeList);
+        String result = compareListOfEmployees(scheduleEmployeeList);
         System.out.println(result);
     }
 
@@ -88,15 +88,29 @@ public class Main {
         }
     }
 
-    public static String compareListOfEmployee(List<ScheduleEmployee> scheduleEmployeeList){
+    public static String compareListOfEmployees(List<ScheduleEmployee> scheduleEmployeeList){
         Map<String, Integer> employeesMatchTimes = new HashMap<>();
 
         for(int i = 0; i < scheduleEmployeeList.size(); i++){
             for(int j = i+1; j < scheduleEmployeeList.size(); j++){
-                employeesMatchTimes.put(scheduleEmployeeList.get(i).getName() + "-" + scheduleEmployeeList.get(j).getName(), 1);
+                int daysWorkedTogether = compareTimesAndDays(scheduleEmployeeList.get(i).getSchedule(), scheduleEmployeeList.get(j).getSchedule());
+                employeesMatchTimes.put(scheduleEmployeeList.get(i).getName() + "-" + scheduleEmployeeList.get(j).getName(), daysWorkedTogether);
             }
         }
 
         return employeesMatchTimes.toString();
+    }
+
+    public static int compareTimesAndDays(Map<String, TimeWorked> schedule1, Map<String, TimeWorked> schedule2){
+        int counter = 0;
+
+        for(Map.Entry<String, TimeWorked> entry : schedule1.entrySet()){
+            String currentKey = entry.getKey();
+            if(schedule2.containsKey(currentKey)){
+                counter += 1;
+            }
+        }
+
+        return counter;
     }
 }
