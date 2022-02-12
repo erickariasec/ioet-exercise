@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -48,8 +49,9 @@ public class Main {
             String name = nameAndSchedule[0];
             System.out.println(name);
 
-            String[] schedule = nameAndSchedule[1].split(","); // split schedule
-            System.out.println(schedule);
+            String[] scheduleAsArray = nameAndSchedule[1].split(","); // split schedule as array
+            System.out.println(scheduleAsArray);
+
 
 
 //            ScheduleEmployee scheduleEmployee = new ScheduleEmployee(name, schedule); // Create a new object each loop
@@ -57,4 +59,5 @@ public class Main {
         }
         return scheduleEmployeeList;
     }
+
 }
