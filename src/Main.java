@@ -6,14 +6,14 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
+        // File Reader
         List<String> listOfEachLine = readLinesFromFile("input1.txt"); // Calls readLinesFromFile function
 
         // Create a list of the object Schedule Employee
         List<ScheduleEmployee> scheduleEmployeeList = getListOfEmployees(listOfEachLine);
 
-        for(ScheduleEmployee scheduleEmployee: scheduleEmployeeList){ // Verify functionality of Schedule Employee List
-            System.out.println(scheduleEmployee.toString()); 
-        }
+        // Print my list in the Console to Verify Functionality
+        printListOfEmployeesWithSchedule(scheduleEmployeeList);
     }
 
     // Create function to return list Of Each Line
@@ -76,5 +76,11 @@ public class Main {
         }
 
         return daysTimeMap;
+    }
+
+    public static void printListOfEmployeesWithSchedule(List<ScheduleEmployee> scheduleEmployeeList){
+        for(ScheduleEmployee scheduleEmployee: scheduleEmployeeList){ // Verify functionality of Schedule Employee List
+            System.out.println(scheduleEmployee.toString());
+        }
     }
 }
