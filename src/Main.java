@@ -14,6 +14,10 @@ public class Main {
 
         // Print my list in the Console to Verify Functionality
         printListOfEmployeesWithSchedule(scheduleEmployeeList);
+
+        // Compare All items in the List
+        String result = compareListOfEmployee(scheduleEmployeeList);
+        System.out.println(result);
     }
 
     // Create function to return list Of Each Line
@@ -82,5 +86,17 @@ public class Main {
         for(ScheduleEmployee scheduleEmployee: scheduleEmployeeList){ // Verify functionality of Schedule Employee List
             System.out.println(scheduleEmployee.toString());
         }
+    }
+
+    public static String compareListOfEmployee(List<ScheduleEmployee> scheduleEmployeeList){
+        Map<String, Integer> employeesMatchTimes = new HashMap<>();
+
+        for(int i = 0; i < scheduleEmployeeList.size(); i++){
+            for(int j = i+1; j < scheduleEmployeeList.size(); j++){
+                employeesMatchTimes.put(scheduleEmployeeList.get(i).getName() + "-" + scheduleEmployeeList.get(j).getName(), 1);
+            }
+        }
+
+        return employeesMatchTimes.toString();
     }
 }
