@@ -1,7 +1,13 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -49,10 +55,10 @@ public class Main {
             String[] nameAndSchedule = line.split("="); // Split returns an array
 
             String name = nameAndSchedule[0];
-            System.out.println(name);
+            System.out.print(name);
 
             String[] scheduleAsArray = nameAndSchedule[1].split(","); // Split schedule as array
-            System.out.println(scheduleAsArray);
+            System.out.println(Arrays.toString(scheduleAsArray));
 
             Map<String, TimeWorked> schedule = convertScheduleToMap(scheduleAsArray); // Calls convertScheduleToMap Function
 
@@ -107,10 +113,15 @@ public class Main {
         for(Map.Entry<String, TimeWorked> entry : schedule1.entrySet()){
             String currentKey = entry.getKey();
             if(schedule2.containsKey(currentKey)){
-                counter += 1;
+                boolean haveWorkedTogether = haveTheyWorkedInTheSameDay(schedule1.get(currentKey), schedule2.get(currentKey));
+                counter += haveWorkedTogether ? 1 : 0;
             }
         }
 
         return counter;
+    }
+
+    public static boolean haveTheyWorkedInTheSameDay(TimeWorked timeWorkedEmployee1, TimeWorked timeWorkedEmployee2){
+        return timeWorkedEmployee1.getStartTime().isBefore(timeWorkedEmployee2.getEndTime()) && timeWorkedEmployee1.getEndTime().isAfter(timeWorkedEmployee2.getStartTime());
     }
 }
