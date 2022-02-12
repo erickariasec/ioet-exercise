@@ -1,10 +1,11 @@
 import java.util.List;
+import java.util.Map;
 
 public class ScheduleEmployee {
     private String name;
-    private String schedule;
+    private Map<String, TimeWorked> schedule;
 
-    public ScheduleEmployee(String name, String schedule){
+    public ScheduleEmployee(String name, Map<String, TimeWorked> schedule){
         this.name = name;
         this.schedule = schedule;
     }
@@ -13,7 +14,7 @@ public class ScheduleEmployee {
         return name;
     }
 
-    public String getSchedule() {
+    public Map<String, TimeWorked> getSchedule() {
         return schedule;
     }
 

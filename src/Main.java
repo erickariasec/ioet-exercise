@@ -1,9 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.time.LocalTime;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,9 +11,9 @@ public class Main {
         // Create a list of the object Schedule Employee
         List<ScheduleEmployee> scheduleEmployeeList = getListOfEmployees(listOfEachLine);
 
-        /*for(ScheduleEmployee scheduleEmployee: scheduleEmployeeList){ // Verify functionality of Schedule Employee List
+        for(ScheduleEmployee scheduleEmployee: scheduleEmployeeList){ // Verify functionality of Schedule Employee List
             System.out.println(scheduleEmployee.toString()); 
-        }*/
+        }
     }
 
     // Create function to return list Of Each Line
@@ -28,7 +26,7 @@ public class Main {
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
 
-                // add each line to my list
+                // Add each line to my list
                 listOfEachLine.add(data);
             }
             myReader.close();
@@ -44,20 +42,39 @@ public class Main {
 
         // Iterate my list to print in console each line
         for (String line : listOfEachLine){
-            String[] nameAndSchedule = line.split("="); // split returns an array
+            String[] nameAndSchedule = line.split("="); // Split returns an array
 
             String name = nameAndSchedule[0];
             System.out.println(name);
 
-            String[] scheduleAsArray = nameAndSchedule[1].split(","); // split schedule as array
+            String[] scheduleAsArray = nameAndSchedule[1].split(","); // Split schedule as array
             System.out.println(scheduleAsArray);
 
+            Map<String, TimeWorked> schedule = convertScheduleToMap(scheduleAsArray); // Calls convertScheduleToMap Function
 
+            ScheduleEmployee scheduleEmployee = new ScheduleEmployee(name, schedule); // Create a new object each loop
 
-//            ScheduleEmployee scheduleEmployee = new ScheduleEmployee(name, schedule); // Create a new object each loop
-//            scheduleEmployeeList.add(scheduleEmployee); // Add Object to the Schedule Employee List
+            scheduleEmployeeList.add(scheduleEmployee); // Add Object to the Schedule Employee List
         }
+
         return scheduleEmployeeList;
     }
 
+    public static Map<String, TimeWorked> convertScheduleToMap (String[] days){
+        Map<String, TimeWorked> daysTimeMap = new LinkedHashMap<>();
+
+        for(String day : days){
+            String dayName = day.substring(0, 2); // MO TU WE TH FR SA SU
+            String[] times = day.substring(2).split("-"); // 10:00-12:00
+
+            LocalTime startTime = LocalTime.parse(times[0]);
+            LocalTime endTime = LocalTime.parse(times[1]);
+
+            TimeWorked timeWorked = new TimeWorked(startTime, endTime); // Create new Object each loop
+
+            daysTimeMap.put(day, timeWorked); // MO10:00-12:00
+        }
+
+        return daysTimeMap;
+    }
 }
