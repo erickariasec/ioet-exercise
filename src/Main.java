@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
         // File Reader
-        List<String> listOfEachLine = readLinesFromFile("input1.txt"); // Calls readLinesFromFile function
+        List<String> listOfEachLine = readLinesFromFile("input2.txt"); // Calls readLinesFromFile function
 
         // Create a list of the object Schedule Employee
         List<ScheduleEmployee> scheduleEmployeeList = getListOfEmployees(listOfEachLine);
@@ -82,7 +82,7 @@ public class Main {
 
             TimeWorked timeWorked = new TimeWorked(startTime, endTime); // Create new Object each loop
 
-            daysTimeMap.put(day, timeWorked); // MO10:00-12:00
+            daysTimeMap.put(dayName, timeWorked); // MO10:00-12:00
         }
 
         return daysTimeMap;
@@ -112,6 +112,7 @@ public class Main {
 
         for(Map.Entry<String, TimeWorked> entry : schedule1.entrySet()){
             String currentKey = entry.getKey();
+            System.out.println(currentKey);
             if(schedule2.containsKey(currentKey)){
                 boolean haveWorkedTogether = haveTheyWorkedInTheSameDay(schedule1.get(currentKey), schedule2.get(currentKey));
                 counter += haveWorkedTogether ? 1 : 0;
