@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
         // File Reader
-        List<String> listOfEachLine = readLinesFromFile("input2.txt"); // Calls readLinesFromFile function
+        List<String> listOfEachLine = readLinesFromFile("input1.txt"); // Calls readLinesFromFile function
 
         // Create a list of the object Schedule Employee
         List<ScheduleEmployee> scheduleEmployeeList = getListOfEmployees(listOfEachLine);
@@ -71,18 +71,18 @@ public class Main {
     }
 
     public static Map<String, TimeWorked> convertScheduleToMap (String[] days){
-        Map<String, TimeWorked> daysTimeMap = new LinkedHashMap<>();
+        Map<String, TimeWorked> daysTimeMap = new LinkedHashMap<>(); // Saves entries in order
 
         for(String day : days){
             String dayName = day.substring(0, 2); // MO TU WE TH FR SA SU
             String[] times = day.substring(2).split("-"); // 10:00-12:00
 
-            LocalTime startTime = LocalTime.parse(times[0]);
-            LocalTime endTime = LocalTime.parse(times[1]);
+            LocalTime startTime = LocalTime.parse(times[0]); // 10:00
+            LocalTime endTime = LocalTime.parse(times[1]); // 12:00
 
             TimeWorked timeWorked = new TimeWorked(startTime, endTime); // Create new Object each loop
 
-            daysTimeMap.put(dayName, timeWorked); // MO10:00-12:00
+            daysTimeMap.put(dayName, timeWorked); // Key: MO, Value=10:00-12:00
         }
 
         return daysTimeMap;
@@ -98,7 +98,9 @@ public class Main {
         Map<String, Integer> employeesMatchTimes = new HashMap<>();
 
         for(int i = 0; i < scheduleEmployeeList.size(); i++){
+            //System.out.println("Value of i: " + scheduleEmployeeList.get(i).getName());
             for(int j = i+1; j < scheduleEmployeeList.size(); j++){
+                //System.out.println("Value of j: " + scheduleEmployeeList.get(j).getName());
                 int daysWorkedTogether = compareTimesAndDays(scheduleEmployeeList.get(i).getSchedule(), scheduleEmployeeList.get(j).getSchedule());
                 employeesMatchTimes.put(scheduleEmployeeList.get(i).getName() + "-" + scheduleEmployeeList.get(j).getName(), daysWorkedTogether);
             }
@@ -108,11 +110,12 @@ public class Main {
     }
 
     public static int compareTimesAndDays(Map<String, TimeWorked> schedule1, Map<String, TimeWorked> schedule2){
+        System.out.println("Employee 1: " + schedule1);
+        System.out.println("Employee 2: " + schedule2);
         int counter = 0;
 
         for(Map.Entry<String, TimeWorked> entry : schedule1.entrySet()){
-            String currentKey = entry.getKey();
-            System.out.println(currentKey);
+            String currentKey = entry.getKey(); // KEY dayName: MO
             if(schedule2.containsKey(currentKey)){
                 boolean haveWorkedTogether = haveTheyWorkedInTheSameDay(schedule1.get(currentKey), schedule2.get(currentKey));
                 counter += haveWorkedTogether ? 1 : 0;
